@@ -1,0 +1,19 @@
+{% extends 'paginas/modelo.html' %}
+
+{% load static %}
+
+{% block conteudo %}
+<h1 class="" mt-4>Cadastros do Sistema</h1>
+<p class="lead">* Campo obrigatório</p>
+
+<form method="POST">
+
+    {% csrf_token %}
+
+    <!-- cada campo aparece em um paragrafo -->
+    {{form.as_p}} 
+
+    <button type="submit" class="btn btn-primary">Salvar</button>
+</form>
+
+{% endblock %}
