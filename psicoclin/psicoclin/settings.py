@@ -40,7 +40,15 @@ INSTALLED_APPS = [
 
     #Ativando o app páginas
     'paginas.apps.PaginasConfig',
+
+    'crispy_forms',
+    'crispy_bootstrap5',
 ]
+
+CRISPY_ALLOWED_TEMPLATE_PACES = 'bootstrap5',
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

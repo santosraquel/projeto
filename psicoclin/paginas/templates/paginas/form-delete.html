@@ -5,8 +5,10 @@
 {% load crispy_forms_tags %}
 
 {% block conteudo %}
-<h1 class="" mt-4>Cadastros do Sistema</h1>
-<p class="lead">* Campo obrigatório</p>
+<h1 class="" mt-4>Exclusão de Dados</h1>
+<p class="lead text-danger">Tem certeza que deseja excluir o registro: <br>
+    {{object}}
+</p>
 
 <form method="POST">
 
@@ -15,7 +17,7 @@
     <!-- cada campo aparece em um paragrafo -->
     {{form|crispy}} 
 
-    <button type="submit" class="btn btn-primary">Salvar</button>
+    <button type="submit" class="btn btn-danger">Excluir</button>
 </form>
 
 {% endblock %}
