@@ -1,12 +1,11 @@
 from django.db import models
 
 class Estado(models.Model):
-    sigla = models.CharField(max_length=2)
+    sigla = models.CharField(max_length=2, unique=True)
     nome = models.CharField(max_length=255)
 
     def __str__(self):
-        return self.sigla
-
+        return self.nome + " / " + self.sigla
 
 class Cidade(models.Model):
     nome = models.CharField(max_length=50)

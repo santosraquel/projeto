@@ -16,19 +16,19 @@ class EstadoCreate(CreateView):
     model = Estado
     fields = ['nome', 'sigla']
     template_name = 'paginas/form.html'
-    sucess_url = reverse_lazy('listar-estado')
+    success_url = reverse_lazy('listar-estado')
 
 class CidadeCreate(CreateView):
     model = Cidade
     fields = ['nome', 'estado']
     template_name = 'paginas/form.html'
-    sucess_url = reverse_lazy('index')
+    success_url = reverse_lazy('listar-cidade')
 
 class PessoaCreate(CreateView):
     model = Pessoa
     fields = ['nome', 'data_nascimento', 'email', 'cidade']
     template_name = 'paginas/form.html'
-    sucess_url = reverse_lazy('index')
+    success_url = reverse_lazy('index')
 
 
 ############################# UPDATE VIEW #########################
@@ -37,33 +37,33 @@ class EstadoUpdate(UpdateView):
     model = Estado
     fields = ['nome', 'sigla']
     template_name = 'paginas/form.html'
-    sucess_url = reverse_lazy('index')
+    success_url = reverse_lazy('listar-estado')
 
 
 class CidadeUpdate(UpdateView):
     model = Cidade
     fields = ['nome', 'estado']
     template_name = 'paginas/form.html'
-    sucess_url = reverse_lazy('listar-estado')
+    success_url = reverse_lazy('listar-cidade')
 
 
 class PessoaUpdate(UpdateView):
     model = Pessoa
     fields = ['nome', 'data_nascimento', 'email', 'cidade']
     template_name = 'paginas/form.html'
-    sucess_url = reverse_lazy('index')
+    success_url = reverse_lazy('index')
 
 ######################### DELETE VIEW ##################################
 class EstadoDelete(DeleteView):
     model = Estado
-    template_name = 'cadastros/form-delete.html'
+    template_name = 'paginas/form-delete.html'
     success_url = reverse_lazy('listar-estado')
 
 
 class CidadeDelete(DeleteView):
     model = Cidade
     template_name = 'paginas/form-delete.html'
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('listar-cidade')
 
 
 class PessoaDelete(DeleteView):
@@ -77,3 +77,7 @@ class PessoaDelete(DeleteView):
 class EstadoList(ListView):
     model = Estado
     template_name = 'paginas/listas/estados.html'
+
+class CidadeList(ListView):
+    model = Cidade
+    template_name = 'paginas/listas/cidades.html'
