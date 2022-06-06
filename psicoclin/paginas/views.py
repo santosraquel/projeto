@@ -3,6 +3,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.base import TemplateView
 from django.views.generic.list import ListView
 
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import Estado, Cidade, Pessoa
 # Create your views here.
@@ -12,19 +13,22 @@ from .models import Estado, Cidade, Pessoa
 class Index(TemplateView):
     template_name = 'paginas/index.html'
 
-class EstadoCreate(CreateView):
+
+class EstadoCreate(LoginRequiredMixin, CreateView):
     model = Estado
     fields = ['nome', 'sigla']
     template_name = 'paginas/form.html'
     success_url = reverse_lazy('listar-estado')
 
-class CidadeCreate(CreateView):
+
+class CidadeCreate(LoginRequiredMixin, CreateView):
     model = Cidade
     fields = ['nome', 'estado']
     template_name = 'paginas/form.html'
     success_url = reverse_lazy('listar-cidade')
 
-class PessoaCreate(CreateView):
+
+class PessoaCreate(LoginRequiredMixin, CreateView):
     model = Pessoa
     fields = ['nome', 'data_nascimento', 'email', 'cidade']
     template_name = 'paginas/form.html'
@@ -33,40 +37,42 @@ class PessoaCreate(CreateView):
 
 ############################# UPDATE VIEW #########################
 
-class EstadoUpdate(UpdateView):
+class EstadoUpdate(LoginRequiredMixin, UpdateView):
     model = Estado
     fields = ['nome', 'sigla']
     template_name = 'paginas/form.html'
     success_url = reverse_lazy('listar-estado')
 
 
-class CidadeUpdate(UpdateView):
+class CidadeUpdate(LoginRequiredMixin, UpdateView):
     model = Cidade
     fields = ['nome', 'estado']
     template_name = 'paginas/form.html'
     success_url = reverse_lazy('listar-cidade')
 
 
-class PessoaUpdate(UpdateView):
+class PessoaUpdate(LoginRequiredMixin, UpdateView):
     model = Pessoa
     fields = ['nome', 'data_nascimento', 'email', 'cidade']
     template_name = 'paginas/form.html'
     success_url = reverse_lazy('index')
 
 ######################### DELETE VIEW ##################################
-class EstadoDelete(DeleteView):
+
+
+class EstadoDelete(LoginRequiredMixin, DeleteView):
     model = Estado
     template_name = 'paginas/form-delete.html'
     success_url = reverse_lazy('listar-estado')
 
 
-class CidadeDelete(DeleteView):
+class CidadeDelete(LoginRequiredMixin, DeleteView):
     model = Cidade
     template_name = 'paginas/form-delete.html'
     success_url = reverse_lazy('listar-cidade')
 
 
-class PessoaDelete(DeleteView):
+class PessoaDelete(LoginRequiredMixin, DeleteView):
     model = Pessoa
     template_name = 'paginas/form-delete.html'
     success_url = reverse_lazy('index')
