@@ -1,0 +1,114 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <title>GEFIN :: Autenticação</title>
+
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
+    <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+</head>
+
+<body class="bg-secondary">
+    <div id="layoutAuthentication">
+        <div id="layoutAuthentication_content">
+            <main>
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-5">
+                            <div class="card shadow-lg border-0 rounded-lg mt-5">
+                                <div class="card-header">
+                                    <h3 class="text-center font-weight-light my-4">Login</h3>
+                                </div>
+                                <div class="card-body">
+
+                                    {% if not request.user.is_authenticated %}
+
+                                    {% if form.errors %}
+                                    <div class="alert alert-danger" role="alert">
+                                        <strong>Atenção!</strong> Usuário não existe ou a senha não confere!
+                                    </div>
+                                    {% endif %}
+
+                                    <form method="POST">
+
+                                        {% csrf_token %}
+
+                                        <div class="form-floating mb-3">
+                                            <input class="form-control" id="id_username" type="text" autofocus
+                                                placeholder="fulano" name="username" required />
+                                            <label for="inputEmail">Usuário</label>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <input class="form-control" id="id_password" type="password"
+                                                placeholder="Password" name="password" required />
+                                            <label for="inputPassword">Senha</label>
+                                        </div>
+                                        <div class="form-check mb-3">
+                                            <input class="form-check-input" id="inputRememberPassword" type="checkbox"
+                                                value="" />
+                                            <label class="form-check-label" for="inputRememberPassword">Manter
+                                                autenticado</label>
+                                        </div>
+                                        <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+                                            <a class="small" href="#">Esqueceu a senha?</a>
+
+                                            <button type="submit" class="btn btn-primary">
+                                                Entrar
+                                            </button>
+
+                                        </div>
+                                    </form>
+                                    {% else %}
+                                    <h5>Você não pode ver essa página!</h5>
+
+                                    <p class="lead">Redirecionando você de volta </p>
+
+                                    <div class="spinner-border text-primary" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+
+                                    <meta http-equiv="refresh" content="4; URL='{% url 'index' %}'" />
+                                    {% endif %}
+
+                                </div>
+                                <div class="card-footer text-center py-3">
+                                    <div class="small"><a href="#">Não tem uma conta? Registre-se!</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+        <div id="layoutAuthentication_footer">
+            <footer class="py-4 bg-light mt-auto">
+                <div class="container-fluid px-4">
+                    <div class="d-flex align-items-center justify-content-between small">
+                        <div class="text-muted">Copyright &copy; Your Website 2022</div>
+                        <div>
+                            <a href="#">Privacy Policy</a>
+                            &middot;
+                            <a href="#">Terms &amp; Conditions</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/scripts.js' %}"></script>
+
+</body>
+
+</html>
