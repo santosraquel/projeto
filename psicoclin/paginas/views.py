@@ -6,6 +6,7 @@ from django.views.generic.list import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import Estado, Cidade, Pessoa
+from braces.views import GroupRequiredMixin
 # Create your views here.
 
 
@@ -14,22 +15,25 @@ class Index(TemplateView):
     template_name = 'paginas/index.html'
 
 
-class EstadoCreate(LoginRequiredMixin, CreateView):
+class EstadoCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
     model = Estado
+    group_required = u"Administrador"
     fields = ['nome', 'sigla']
     template_name = 'paginas/form.html'
     success_url = reverse_lazy('listar-estado')
 
 
-class CidadeCreate(LoginRequiredMixin, CreateView):
+class CidadeCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
     model = Cidade
+    group_required = u"Administrador"
     fields = ['nome', 'estado']
     template_name = 'paginas/form.html'
     success_url = reverse_lazy('listar-cidade')
 
 
-class PessoaCreate(LoginRequiredMixin, CreateView):
+class PessoaCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
     model = Pessoa
+    group_required = u"Administrador"
     fields = ['nome', 'data_nascimento', 'email', 'cidade']
     template_name = 'paginas/form.html'
     success_url = reverse_lazy('index')
@@ -37,22 +41,25 @@ class PessoaCreate(LoginRequiredMixin, CreateView):
 
 ############################# UPDATE VIEW #########################
 
-class EstadoUpdate(LoginRequiredMixin, UpdateView):
+class EstadoUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     model = Estado
     fields = ['nome', 'sigla']
+    group_required = u"Administrador"
     template_name = 'paginas/form.html'
     success_url = reverse_lazy('listar-estado')
 
 
-class CidadeUpdate(LoginRequiredMixin, UpdateView):
+class CidadeUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     model = Cidade
     fields = ['nome', 'estado']
+    group_required = u"Administrador"
     template_name = 'paginas/form.html'
     success_url = reverse_lazy('listar-cidade')
 
 
-class PessoaUpdate(LoginRequiredMixin, UpdateView):
+class PessoaUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     model = Pessoa
+    group_required = [u"Administrador", u"Editor"]
     fields = ['nome', 'data_nascimento', 'email', 'cidade']
     template_name = 'paginas/form.html'
     success_url = reverse_lazy('index')
@@ -60,30 +67,36 @@ class PessoaUpdate(LoginRequiredMixin, UpdateView):
 ######################### DELETE VIEW ##################################
 
 
-class EstadoDelete(LoginRequiredMixin, DeleteView):
+class EstadoDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
     model = Estado
+    group_required = u"Administrador"
     template_name = 'paginas/form-delete.html'
     success_url = reverse_lazy('listar-estado')
 
 
-class CidadeDelete(LoginRequiredMixin, DeleteView):
+class CidadeDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
     model = Cidade
+    group_required = u"Administrador"
     template_name = 'paginas/form-delete.html'
     success_url = reverse_lazy('listar-cidade')
 
 
-class PessoaDelete(LoginRequiredMixin, DeleteView):
+class PessoaDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
     model = Pessoa
+    group_required = [u"Administrador", u"Editor"]
     template_name = 'paginas/form-delete.html'
     success_url = reverse_lazy('index')
 
 
 ######################### LIST VIEW ###############
 
-class EstadoList(ListView):
+class EstadoList(GroupRequiredMixin, ListView):
     model = Estado
+    group_required =[ u"Administrador", u"Editor"]
     template_name = 'paginas/listas/estados.html'
 
-class CidadeList(ListView):
+
+class CidadeList(GroupRequiredMixin, ListView):
     model = Cidade
+    group_required = [u"Administrador", u"Editor"]
     template_name = 'paginas/listas/cidades.html'
