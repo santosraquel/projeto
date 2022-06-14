@@ -3,7 +3,7 @@ from django.urls import path
 from .views import Index, EstadoCreate, CidadeCreate, PessoaCreate
 from .views import EstadoUpdate, CidadeUpdate, PessoaUpdate
 from .views import EstadoDelete, CidadeDelete, PessoaDelete
-from .views import EstadoList, CidadeList
+from .views import EstadoList, CidadeList, PessoaList
 
 
 urlpatterns = [
@@ -23,4 +23,5 @@ urlpatterns = [
 
     path('listar/estado/', EstadoList.as_view(), name="listar-estado"),
     path('listar/cidade/', CidadeList.as_view(), name="listar-cidade"),
+    path('listar/pessoa/', PessoaList.as_view(), name="listar-pessoa"),
 ]

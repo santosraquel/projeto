@@ -100,3 +100,8 @@ class CidadeList(GroupRequiredMixin, ListView):
     model = Cidade
     group_required = [u"Administrador", u"Editor"]
     template_name = 'paginas/listas/cidades.html'
+
+class PessoaList(GroupRequiredMixin, ListView):
+    model = Pessoa
+    group_required = [u"Administrador", u"Editor"]
+    template_name = 'paginas/listas/pessoas.html'
