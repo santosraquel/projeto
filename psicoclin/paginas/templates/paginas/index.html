@@ -5,24 +5,27 @@
 
 {% block titulo %}
 
-    <title>GEFIN ~ Página Inicial</title>
+    <title>Página Inicial</title>
 {% endblock %}
 
 {% block conteudo %}
-<h1 class="mt-4">Olá Templates</h1>
+<h1 class="mt-4">Psicoclin</h1>
 <p class="lead">
-    Exemplo de texto introdutório.
+    O sistema PsicoClin consiste em uma agenda pessoal de consultas médicas, desenvolvida para uma clínica psicológica da
+    cidade de Paranavaí. Esse aplicativo permite que o usuário/paciente consiga se organizar em relação aos dias e horários
+    de sua consulta. Em outras palavras, esse sistema irá agir de forma semelhante a um aplicativo de bloco de notas, no
+    qual o usuário poderá criar uma lista de consultas que irá precisar realizar, colocando a data e o horário, bem como
+    poderá excluir ou editar uma consulta da lista. É desejável que esse aplicativo possua um mecanismo de notificação para
+    informar ao usuário que a data da consulta está próxima para que este não esqueça de comparecer..
 </p>
 
-<h3>
-    {{ teste }}
-</h3>
 
-{% if request.user.is_authenticated %}
+<!-- {% if request.user.is_authenticated %}
 <h4>
-    Estados: {{ name }}
+    Estados: {{ estado.name }}
 </h4>
-{% endif %}
+{% endif %} -->
+
 
 {% if request.user.groups.all.0.name == "Administrador" %}
 <div class="alert alert-primary" role="alert">

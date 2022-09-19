@@ -5,11 +5,11 @@
 {% block conteudo %}
 
 <h1 class="mt-4">
-    Lista de Pessoas
+    Lista de Fuções
 
     <a class="btn btn-primary float-right ms-5" 
-        href="{% url 'cadastrar-pessoa' %}">
-        Cadastrar Pessoa
+        href="{% url 'cadastrar-funcao' %}">
+        Cadastrar Função
     </a>
 
 </h1>
@@ -20,9 +20,7 @@
         <tr>
             <th>ID</th>
             <th>Nome</th>
-            <th>Data Nascimento</th>
-            <th>E-mail</th>
-            <th>Cidade</th>
+            <th>Descrição</th>
             <th>Opções</th>
         </tr>
     </thead>
@@ -32,9 +30,7 @@
         <tr>
             <td>{{obj.pk}}</td>
             <td>{{obj.nome}}</td>
-            <td>{{obj.data_nascimento}}</td>
-            <td>{{obj.email}}</td>
-            <td>{{obj.cidade}}</td>
+            <td>{{obj.descricao }}</td>
             <td>
                 <a href="{% url 'editar-pessoa' obj.pk %}" class="btn btn-warning btn-sm" title="Editar">
                     <i class="fa fa-pencil" aria-hidden="true"></i>

@@ -8,13 +8,14 @@ from django.shortcuts import get_object_or_404
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from .models import Estado, Cidade, Pessoa
+from .models import Estado, Cidade, Pessoa, Funcao
 from braces.views import GroupRequiredMixin
 # Create your views here.
 
 
 ############################# CREATE VIEW #########################
-class Index(TemplateView):
+class Index(GroupRequiredMixin, TemplateView):
+    group_required = u"Visualizador"
     template_name = 'paginas/index.html'
 
 
@@ -46,6 +47,13 @@ class PessoaCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
     model = Pessoa
     group_required = u"Administrador"
     fields = ['nome', 'data_nascimento', 'email', 'cidade']
+    template_name = 'paginas/form.html'
+    success_url = reverse_lazy('index')
+
+class FuncaoCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
+    model = Funcao
+    group_required = u"Administrador"
+    fields = ['nome', 'descrição']
     template_name = 'paginas/form.html'
     success_url = reverse_lazy('index')
 
@@ -81,6 +89,12 @@ class PessoaUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     template_name = 'paginas/form.html'
     success_url = reverse_lazy('index')
 
+class FuncaoUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
+    model = Funcao
+    fields = ['nome', 'descricao']
+    template_name = 'paginas/form.html'
+    success_url = reverse_lazy('index')
+
 ######################### DELETE VIEW ##################################
 
 
@@ -111,6 +125,12 @@ class PessoaDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
     template_name = 'paginas/form-delete.html'
     success_url = reverse_lazy('index')
 
+class FuncaoDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
+    model = Funcao
+    group_required = u"Administrador"
+    template_name = 'paginas/form-delete.html'
+    success_url = reverse_lazy('listar-funcao')
+
 
 ######################### LIST VIEW ###############
 
@@ -137,6 +157,12 @@ class PessoaList(GroupRequiredMixin, ListView):
     model = Pessoa
     group_required = [u"Administrador", u"Editor"]
     template_name = 'paginas/listas/pessoas.html'
+
+
+class FuncaoList(GroupRequiredMixin, ListView):
+    model = Funcao
+    group_required =[ u"Administrador", u"Editor"]
+    template_name = 'paginas/listas/funcoes.html'
 
 
 # Create your views here.

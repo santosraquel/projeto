@@ -4,13 +4,17 @@
 
 {% block conteudo %}
 
-<h1 class="mt-4 float-left ">
+<h1 class="mt-4">
     Lista de Estados
 
-    <a class="btn btn-primary" href="{% url 'cadastrar-estado' %}">Cadastrar Estado</a>
+    <a class="btn btn-primary float-right ms-5" 
+        href="{% url 'cadastrar-estado' %}">
+        Cadastrar Estado
+    </a>
 
 </h1>
 
+<hr>
 
 <table class="table table-striped">
     <thead>
@@ -29,8 +33,12 @@
             <td>{{obj.nome}}</td>
             <td>{{obj.sigla}}</td>
             <td>
-                <a href="{% url 'editar-estado' obj.pk %}" class="btn btn-warning">Editar</a>
-                <a href="{% url 'excluir-estado' obj.pk %}" class="btn btn-danger">Excluir</a>
+                <a href="{% url 'editar-estado' obj.pk %}" class="btn btn-warning btn-sm" title="Editar">
+                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                </a>
+                <a href="{% url 'excluir-estado' obj.pk %}" class="btn btn-danger btn-sm" title="Excluir">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                </a>
             </td>
         </tr>
         {% empty %}

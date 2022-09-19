@@ -5,17 +5,25 @@
 {% load crispy_forms_tags %}
 
 {% block conteudo %}
-<h1 class="mt-4" >Cadastros do Sistema</h1>
-<p class="lead">* Campo obrigatório</p>
 
-<form method="POST">
+<h1 class="mt-4">Cadastros do sistema</h1>
+
+<p class="lead">
+    * Campo obrigatório
+</p>
+
+<form method="POST" class="my-4">
 
     {% csrf_token %}
 
-    <!-- cada campo aparece em um paragrafo -->
-    {{form|crispy}} 
+    {{ form|crispy }}
 
-    <button type="submit" class="btn btn-primary">Salvar</button>
+    <button type="submit" class="btn btn-primary">
+        Salvar
+    </button>
+
 </form>
+
+<br>
 
 {% endblock %}

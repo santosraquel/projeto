@@ -14,7 +14,7 @@ class Cidade(models.Model):
     usuario = models.ForeignKey(User, on_delete=models.PROTECT)
 
     def __str__(self):
-        return self.nome + "/" + self.estado
+        return self.nome + "/" + self.estado.sigla
 
 
 class Pessoa(models.Model):
@@ -28,3 +28,13 @@ class Pessoa(models.Model):
 
     def __str__(self):
         return '{} ({})'.format(self.nome, self.data_nascimento)
+
+
+class Funcao(models.Model):
+
+    funcao = models.CharField(
+        max_length=50, verbose_name="Função")
+    descricao = models.TextField(verbose_name='Descrição')
+
+    def __str__(self):
+        return '{}'.format(self.funcao)
