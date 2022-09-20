@@ -53,6 +53,11 @@ class ConsultaUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
         return self.object_list
 
 
+
+
+
+
+
 ######################### DELETE VIEW ##################################
 
 class ConsultaDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
