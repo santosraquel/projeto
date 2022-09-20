@@ -5,23 +5,24 @@
 {% block conteudo %}
 
 <h1 class="mt-4">
-    Lista de Cidades
+    Lista de Funcionários
 
-    <a href="{% url 'cadastrar-cidade' %}"
-        class="btn btn-primary float-right ms-5">
-        Cadastrar Cidade
+    <a class="btn btn-primary float-right ms-5" 
+        href="{% url 'cadastrar-funcionario' %}">
+        Cadastrar Funcionário
     </a>
 
 </h1>
 
 <hr>
-
 <table class="table table-striped">
     <thead>
         <tr>
             <th>ID</th>
             <th>Nome</th>
-            <th>Estado</th>
+            <th>Data Nascimento</th>
+            <th>E-mail</th>
+            <th>Cidade</th>
             <th>Opções</th>
         </tr>
     </thead>
@@ -31,12 +32,14 @@
         <tr>
             <td>{{obj.pk}}</td>
             <td>{{obj.nome}}</td>
-            <td>{{obj.estado}}</td>
+            <td>{{obj.data_nascimento}}</td>
+            <td>{{obj.email}}</td>
+            <td>{{obj.cidade}}</td>
             <td>
-                <a href="{% url 'editar-cidade' obj.pk %}" class="btn btn-warning btn-sm" title="Editar">
+                <a href="{% url 'editar-funcionario' obj.pk %}" class="btn btn-warning btn-sm" title="Editar">
                     <i class="fa fa-pencil" aria-hidden="true"></i>
                 </a>
-                <a href="{% url 'excluir-cidade' obj.pk %}" class="btn btn-danger btn-sm" title="Excluir">
+                <a href="{% url 'excluir-funcionario' obj.pk %}" class="btn btn-danger btn-sm" title="Excluir">
                     <i class="fa fa-trash" aria-hidden="true"></i>
                 </a>
             </td>
@@ -48,6 +51,5 @@
         {% endfor %}
     </tbody>
 </table>
-
 
 {% endblock %}

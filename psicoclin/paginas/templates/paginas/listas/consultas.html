@@ -5,23 +5,25 @@
 {% block conteudo %}
 
 <h1 class="mt-4">
-    Lista de Cidades
+    Lista de Consultas
 
-    <a href="{% url 'cadastrar-cidade' %}"
-        class="btn btn-primary float-right ms-5">
-        Cadastrar Cidade
+    <a class="btn btn-primary float-right ms-5" 
+        href="{% url 'cadastrar-consulta' %}">
+        Cadastrar Consulta
     </a>
 
 </h1>
 
 <hr>
-
 <table class="table table-striped">
     <thead>
         <tr>
             <th>ID</th>
-            <th>Nome</th>
-            <th>Estado</th>
+            <th>Paciente</th>
+            <th>Medico</th>
+            <th>Data</th>
+            <th>Hora</th>
+            <th>Status</th>
             <th>Opções</th>
         </tr>
     </thead>
@@ -30,13 +32,16 @@
         {% for obj in object_list %}
         <tr>
             <td>{{obj.pk}}</td>
-            <td>{{obj.nome}}</td>
-            <td>{{obj.estado}}</td>
+            <td>{{obj.paciente}}</td>
+            <td>{{obj.medico}}</td>
+            <td>{{obj.data}}</td>
+            <td>{{obj.hora}}</td>
+            <td>{{obj.status}}</td>
             <td>
-                <a href="{% url 'editar-cidade' obj.pk %}" class="btn btn-warning btn-sm" title="Editar">
+                <a href="{% url 'editar-consulta' obj.pk %}" class="btn btn-warning btn-sm" title="Editar">
                     <i class="fa fa-pencil" aria-hidden="true"></i>
                 </a>
-                <a href="{% url 'excluir-cidade' obj.pk %}" class="btn btn-danger btn-sm" title="Excluir">
+                <a href="{% url 'excluir-consulta' obj.pk %}" class="btn btn-danger btn-sm" title="Excluir">
                     <i class="fa fa-trash" aria-hidden="true"></i>
                 </a>
             </td>
@@ -48,6 +53,5 @@
         {% endfor %}
     </tbody>
 </table>
-
 
 {% endblock %}

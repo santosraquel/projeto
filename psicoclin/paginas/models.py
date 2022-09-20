@@ -17,7 +17,7 @@ class Cidade(models.Model):
         return self.nome + "/" + self.estado.sigla
 
 
-class Pessoa(models.Model):
+class Paciente(models.Model):
 
     nome = models.CharField(
         max_length=50, verbose_name="Nome", help_text="Digite seu nome completo")
@@ -38,3 +38,42 @@ class Funcao(models.Model):
 
     def __str__(self):
         return '{}'.format(self.funcao)
+
+
+class Medico(models.Model):
+
+    nome = models.CharField(
+        max_length=50, verbose_name="Nome", help_text="Digite seu nome completo")
+    data_nascimento = models.DateField(verbose_name='Data de Nascimento')
+    email = models.CharField(max_length=100)
+
+    cidade = models.ForeignKey(Cidade, on_delete=models.PROTECT)
+
+    def __str__(self):
+        return '{} ({})'.format(self.nome, self.data_nascimento)
+
+    
+class Funcionario(models.Model):
+
+    nome = models.CharField(
+        max_length=50, verbose_name="Nome", help_text="Digite seu nome completo")
+    data_nascimento = models.DateField(verbose_name='Data de Nascimento')
+    email = models.CharField(max_length=100)
+
+    cidade = models.ForeignKey(Cidade, on_delete=models.PROTECT)
+
+    def __str__(self):
+        return '{} ({})'.format(self.nome, self.data_nascimento)
+
+
+class Consulta(models.Model):
+
+    data_consulta = models.DateField(verbose_name='Data da Consulta')
+    hora_consulta = models.TimeField(verbose_name="Hora")
+    status_consulta = models.BooleanField(verbose_name="Status")
+
+    paciente = models.ForeignKey(Paciente, on_delete=models.PROTECT)
+    medico = models.ForeignKey(Medico, on_delete=models.PROTECT)
+
+    def __str__(self):
+        return '{} ({})'.format(self.nome, self.data_nascimento)
