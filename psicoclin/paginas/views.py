@@ -46,14 +46,14 @@ class CidadeCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
 class PacienteCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
     model = Paciente
     group_required = u"Administrador"
-    fields = ['nome', 'data_nascimento', 'email', 'cidade']
+    fields = ['nome', 'titular', 'rg', 'cpf', 'cidade']
     template_name = 'paginas/form.html'
     success_url = reverse_lazy('index')
 
 class FuncaoCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
     model = Funcao
     group_required = u"Administrador"
-    fields = ['nome', 'descrição']
+    fields = ['nome', 'descricao']
     template_name = 'paginas/form.html'
     success_url = reverse_lazy('index')
 
