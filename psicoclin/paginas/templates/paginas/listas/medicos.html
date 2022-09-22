@@ -20,9 +20,10 @@
         <tr>
             <th>ID</th>
             <th>Nome</th>
-            <th>Data Nascimento</th>
-            <th>E-mail</th>
-            <th>Cidade</th>
+            <th>CRM</th>
+            <th>Função</th>
+            <th>Telefone</th>
+            <th>Status</th>
             <th>Opções</th>
         </tr>
     </thead>
@@ -32,9 +33,10 @@
         <tr>
             <td>{{obj.pk}}</td>
             <td>{{obj.nome}}</td>
-            <td>{{obj.data_nascimento}}</td>
-            <td>{{obj.email}}</td>
-            <td>{{obj.cidade}}</td>
+            <td>{{obj.crm}}</td>
+            <td>{{obj.funcao}}</td>
+            <td>{{obj.telefone}}</td>
+            <td>{{obj.status}}</td>
             <td>
                 <a href="{% url 'editar-medico' obj.pk %}" class="btn btn-warning btn-sm" title="Editar">
                     <i class="fa fa-pencil" aria-hidden="true"></i>

@@ -23,6 +23,7 @@
             <th>Medico</th>
             <th>Data</th>
             <th>Hora</th>
+            <th>Valor</th>
             <th>Status</th>
             <th>Opções</th>
         </tr>
@@ -36,6 +37,7 @@
             <td>{{obj.medico}}</td>
             <td>{{obj.data}}</td>
             <td>{{obj.hora}}</td>
+            <td>{{obj.valor}}</td>
             <td>{{obj.status}}</td>
             <td>
                 <a href="{% url 'editar-consulta' obj.pk %}" class="btn btn-warning btn-sm" title="Editar">

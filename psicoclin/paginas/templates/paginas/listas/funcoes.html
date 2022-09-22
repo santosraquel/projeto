@@ -19,7 +19,7 @@
     <thead>
         <tr>
             <th>ID</th>
-            <th>Nome</th>
+            <th>Função</th>
             <th>Descrição</th>
             <th>Opções</th>
         </tr>
@@ -29,13 +29,13 @@
         {% for obj in object_list %}
         <tr>
             <td>{{obj.pk}}</td>
-            <td>{{obj.nome}}</td>
+            <td>{{obj.funcao}}</td>
             <td>{{obj.descricao }}</td>
             <td>
-                <a href="{% url 'editar-paciente' obj.pk %}" class="btn btn-warning btn-sm" title="Editar">
+                <a href="{% url 'editar-funcao' obj.pk %}" class="btn btn-warning btn-sm" title="Editar">
                     <i class="fa fa-pencil" aria-hidden="true"></i>
                 </a>
-                <a href="{% url 'excluir-paciente' obj.pk %}" class="btn btn-danger btn-sm" title="Excluir">
+                <a href="{% url 'excluir-funcao' obj.pk %}" class="btn btn-danger btn-sm" title="Excluir">
                     <i class="fa fa-trash" aria-hidden="true"></i>
                 </a>
             </td>
