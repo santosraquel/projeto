@@ -1,46 +1,39 @@
-
 {% extends 'paginas/modelo.html' %}
-
+ 
 {% load static %}
-
+ 
 {% block titulo %}
-
-    <title>Página Inicial</title>
+ 
+   <title>Página Inicial</title>
 {% endblock %}
-
+ 
 {% block conteudo %}
-<h1 class="mt-4">Psicoclin</h1>
+<!-- <h1 class="mt-4">Psicoclin</h1> -->
 <p class="lead">
-    O sistema PsicoClin consiste em uma agenda pessoal de consultas médicas, desenvolvida para uma clínica psicológica da
-    cidade de Paranavaí. Esse aplicativo permite que o usuário/paciente consiga se organizar em relação aos dias e horários
-    de sua consulta. Em outras palavras, esse sistema irá agir de forma semelhante a um aplicativo de bloco de notas, no
-    qual o usuário poderá criar uma lista de consultas que irá precisar realizar, colocando a data e o horário, bem como
-    poderá excluir ou editar uma consulta da lista. É desejável que esse aplicativo possua um mecanismo de notificação para
-    informar ao usuário que a data da consulta está próxima para que este não esqueça de comparecer..
+   Sistema desenvolvido na disciplina de Novas Aplicações em Engenharia de Software, do curso bacharel em
+   Engenharia de Software do Instituto Federal do Paraná - Campus Paranavaí, para obetenção
+   de conceito do 2º Trimestre.
 </p>
-
-
-<!-- {% if request.user.is_authenticated %}
-<h4>
-    Estados: {{ estado.name }}
-</h4>
-{% endif %} -->
-
-
+ 
+<h1 class="text-center">PsicoClin</h1>
+ 
+<p class="lead">
+   O sistema PsicoClin consiste em um sistema de agendamento de consultas médicas desenvolvido para
+   uma clínica da cidade de Paranavaí. Este sistema permite que a clínica se organize
+   em relação as consultas, ou seja, quais dias e horários que tem consulta, bem como
+   qual paciente será atendido por determinado médico.   
+</p>
+ 
+<h3 class="text-center">Diagrama de Classe</h3>
+<img src="/static/assets/img/der.png" class="mx-auto mt-5 d-block"/> 
+ 
+ 
 {% if request.user.groups.all.0.name == "Administrador" %}
 <div class="alert alert-primary" role="alert">
-    <strong>Administrador detectado</strong>
+   <strong>Administrador detectado</strong>
 </div>
+
 {% endif %}
 
 {% endblock %}
-
-
-<!-- 
-    O aplicativo PsicoClin consiste em uma agenda pessoal de consultas médicas, desenvolvida para uma clínica psicológica da
-    cidade de Paranavaí. Esse aplicativo permite que o usuário/paciente consiga se organizar em relação aos dias e horários
-    de sua consulta. Em outras palavras, esse sistema irá agir de forma semelhante a um aplicativo de bloco de notas, no
-    qual o usuário poderá criar uma lista de consultas que irá precisar realizar, colocando a data e o horário, bem como
-    poderá excluir ou editar uma consulta da lista. É desejável que esse aplicativo possua um mecanismo de notificação para
-    informar ao usuário que a data da consulta está próxima para que este não esqueça de comparecer. -->
 

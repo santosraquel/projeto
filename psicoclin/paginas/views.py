@@ -14,13 +14,13 @@ from braces.views import GroupRequiredMixin
 
 
 ############################# CREATE VIEW #########################
-class Index(GroupRequiredMixin, TemplateView):
-    group_required = u"Visualizador"
+class Index(TemplateView):
     template_name = 'paginas/index.html'
 
 
 class EstadoCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
     model = Estado
+    login_url = reverse_lazy('login')
     group_required = u"Administrador"
     fields = ['nome', 'sigla']
     template_name = 'paginas/form.html'
@@ -29,6 +29,7 @@ class EstadoCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
 
 class CidadeCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
     model = Cidade
+    login_url = reverse_lazy('login')
     group_required = u"Administrador"
     fields = ['nome', 'estado']
     template_name = 'paginas/form.html'
@@ -42,55 +43,62 @@ class CidadeCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
         self.object.save()  # salvando o objeto que foi alterado
         return url
 
-class FuncaoCreate(LoginRequiredMixin, CreateView):
+class FuncaoCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
     model = Funcao
+    login_url = reverse_lazy('login')
     group_required = u"Administrador"
     fields = ['funcao', 'descricao']
     template_name = 'paginas/form.html'
     success_url = reverse_lazy('listar-funcao')
 
 
-class MedicoCreate(LoginRequiredMixin, CreateView):
+class MedicoCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
     model = Medico
+    login_url = reverse_lazy('login')
     group_required = u"Administrador"
     fields = ['nome', 'nascimento', 'rg', 'crm', 'rua', 'bairro', 'numero', 'cidade', 'telefone', 'funcao', 'status']
     template_name = 'paginas/form.html'
     success_url = reverse_lazy('listar-medico')
 
-class PacienteCreate(LoginRequiredMixin, CreateView):
+class PacienteCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
+    login_url = reverse_lazy('login')
     model = Paciente
-    group_required = u"Administrador"
+    group_required = [u"Administrador", u"Funcionario"]
     fields = ['nome', 'titular', 'nascimento', 'rg', 'cpf', 'rua', 'bairro', 'numero', 'cidade', 'telefone',  'status']
     template_name = 'paginas/form.html'
     success_url = reverse_lazy('listar-paciente')
 
-class FuncionarioCreate(LoginRequiredMixin, CreateView):
+class FuncionarioCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
     model = Funcionario
+    login_url = reverse_lazy('login')
     group_required = u"Administrador"
     fields = ['nome', 'nascimento', 'rg', 'cpf', 'rua', 'bairro', 'numero', 'cidade', 'telefone',  'status']
     template_name = 'paginas/form.html'
     success_url = reverse_lazy('listar-funcionario')
 
 
-class ConsultaCreate(LoginRequiredMixin, CreateView):
+class ConsultaCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
     model = Consulta
-    group_required = u"Administrador"
+    login_url = reverse_lazy('login')
+    group_required =[ u"Administrador", u"Funcionario"]
     fields = ['paciente', 'medico', 'data', 'hora', 'valor', 'status']
     template_name = 'paginas/form.html'
     success_url = reverse_lazy('listar-consulta')
 
 ############################# UPDATE VIEW #########################
 
-class EstadoUpdate(LoginRequiredMixin, UpdateView):
+class EstadoUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     model = Estado
+    login_url = reverse_lazy('login')
     fields = ['nome', 'sigla']
     group_required = u"Administrador"
     template_name = 'paginas/form.html'
     success_url = reverse_lazy('listar-estado')
 
 
-class CidadeUpdate(LoginRequiredMixin, UpdateView):
+class CidadeUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     model = Cidade
+    login_url = reverse_lazy('login')
     fields = ['nome', 'estado']
     group_required = u"Administrador"
     template_name = 'paginas/form.html'
@@ -104,38 +112,44 @@ class CidadeUpdate(LoginRequiredMixin, UpdateView):
 
 
 
-class FuncaoUpdate(LoginRequiredMixin, UpdateView):
+class FuncaoUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     model = Funcao
+    login_url = reverse_lazy('login')
     fields = ['funcao', 'descricao']
+    group_required = u"Administrador"
     template_name = 'paginas/form.html'
     success_url = reverse_lazy('listar-funcao')
 
 
-class MedicoUpdate(LoginRequiredMixin, UpdateView):
+class MedicoUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     model = Medico
-    group_required = [u"Administrador", u"Editor"]
+    login_url = reverse_lazy('login')
+    group_required = u"Administrador"
     fields = ['nome', 'nascimento', 'rg', 'crm', 'rua', 'bairro', 'numero', 'cidade', 'telefone', 'funcao', 'status']
     template_name = 'paginas/form.html'
     success_url = reverse_lazy('listar-medico')
 
-class PacienteUpdate(LoginRequiredMixin, UpdateView):
+class PacienteUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     model = Paciente
-    group_required = [u"Administrador", u"Editor"]
+    login_url = reverse_lazy('login')
+    group_required = [u"Administrador", u"Funcionario"]
     fields = ['nome', 'titular', 'nascimento', 'rg', 'cpf', 'rua', 'bairro', 'numero', 'cidade', 'telefone',  'status']
     template_name = 'paginas/form.html'
     success_url = reverse_lazy('listar-paciente')
 
-class FuncionarioUpdate(LoginRequiredMixin, UpdateView):
+class FuncionarioUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     model = Funcionario
-    group_required = [u"Administrador", u"Editor"]
+    login_url = reverse_lazy('login')
+    group_required = u"Administrador"
     fields = ['nome', 'nascimento', 'rg', 'cpf', 'rua', 'bairro', 'numero', 'cidade', 'telefone',  'status']
     template_name = 'paginas/form.html'
     success_url = reverse_lazy('listar-funcionario')
 
 
-class ConsultaUpdate(LoginRequiredMixin, CreateView):
+class ConsultaUpdate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
     model = Consulta
-    group_required = u"Administrador"
+    login_url = reverse_lazy('login')
+    group_required = [u"Administrador", u"Funcionario"]
     fields = ['paciente', 'medico', 'data', 'hora', 'valor', 'status']
     template_name = 'paginas/form.html'
     success_url = reverse_lazy('listar-consulta')
@@ -143,15 +157,17 @@ class ConsultaUpdate(LoginRequiredMixin, CreateView):
 ######################### DELETE VIEW ##################################
 
 
-class EstadoDelete(LoginRequiredMixin, DeleteView):
+class EstadoDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
     model = Estado
+    login_url = reverse_lazy('login')
     group_required = u"Administrador"
     template_name = 'paginas/form-delete.html'
     success_url = reverse_lazy('listar-estado')
 
 
-class CidadeDelete(LoginRequiredMixin, DeleteView):
+class CidadeDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
     model = Cidade
+    login_url = reverse_lazy('login')
     group_required = u"Administrador"
     template_name = 'paginas/form-delete.html'
     success_url = reverse_lazy('listar-cidade')
@@ -165,49 +181,56 @@ class CidadeDelete(LoginRequiredMixin, DeleteView):
 
 
 
-class FuncaoDelete(LoginRequiredMixin, DeleteView):
+class FuncaoDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
     model = Funcao
+    login_url = reverse_lazy('login')
     group_required = u"Administrador"
     template_name = 'paginas/form-delete.html'
     success_url = reverse_lazy('listar-funcao')
 
 
-class MedicoDelete(LoginRequiredMixin, DeleteView):
+class MedicoDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
     model = Medico
-    group_required = [u"Administrador", u"Editor"]
+    login_url = reverse_lazy('login')
+    group_required = u"Administrador"
     template_name = 'paginas/form-delete.html'
     success_url = reverse_lazy('listar-medico')
 
-class PacienteDelete(LoginRequiredMixin, DeleteView):
+class PacienteDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
     model = Paciente
-    group_required = [u"Administrador", u"Editor"]
+    login_url = reverse_lazy('login')
+    group_required = [u"Administrador", u"Funcionario"]
     template_name = 'paginas/form-delete.html'
     success_url = reverse_lazy('listar-paciente')
 
-class FuncionarioDelete(LoginRequiredMixin, DeleteView):
+class FuncionarioDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
     model = Funcionario
-    group_required = [u"Administrador", u"Editor"]
+    login_url = reverse_lazy('login')
+    group_required = u"Administrador"
     template_name = 'paginas/form-delete.html'
     success_url = reverse_lazy('listar-funcionario')
 
 
-class ConsultaDelete(LoginRequiredMixin, DeleteView):
+class ConsultaDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
     model = Consulta
-    group_required = [u"Administrador", u"Editor"]
+    login_url = reverse_lazy('login')
+    group_required = [u"Administrador", u"Funcionario"]
     template_name = 'paginas/form-delete.html'
     success_url = reverse_lazy('listar-consulta')
 
 ######################### LIST VIEW ###############
 
-class EstadoList(ListView):
+class EstadoList(GroupRequiredMixin, LoginRequiredMixin, ListView):
     model = Estado
-    group_required =[ u"Administrador", u"Editor"]
+    login_url = reverse_lazy('login')
+    group_required = [u"Administrador", u"Funcionario"]
     template_name = 'paginas/listas/estados.html'
 
 
-class CidadeList(ListView):
+class CidadeList(GroupRequiredMixin, LoginRequiredMixin, ListView):
     model = Cidade
-    group_required = [u"Administrador", u"Editor"]
+    login_url = reverse_lazy('login')
+    group_required = [u"Administrador", u"Funcionario"]
     template_name = 'paginas/listas/cidades.html'
 
     # filter() retorna uma lista
@@ -217,31 +240,36 @@ class CidadeList(ListView):
         self.object_list = Cidade.objects.filter(usuario=self.request.user) # listando as cidades do usuário logado
         return self.object_list
     
-class FuncaoList(ListView):
+class FuncaoList(GroupRequiredMixin, LoginRequiredMixin, ListView):
     model = Funcao
-    group_required =[ u"Administrador", u"Editor"]
+    login_url = reverse_lazy('login')
+    group_required = [u"Administrador", u"Funcionario"]
     template_name = 'paginas/listas/funcoes.html'
 
 
-class MedicoList(ListView):
+class MedicoList(GroupRequiredMixin, LoginRequiredMixin, ListView):
     model = Medico
-    group_required = [u"Administrador", u"Editor"]
+    login_url = reverse_lazy('login')
+    group_required = [u"Administrador", u"Funcionario"]
     template_name = 'paginas/listas/medicos.html'
 
-class PacienteList(ListView):
+class PacienteList(GroupRequiredMixin, LoginRequiredMixin, ListView):
     model = Paciente
-    group_required = [u"Administrador", u"Editor"]
+    login_url = reverse_lazy('login')
+    group_required = [u"Administrador", u"Funcionario"]
     template_name = 'paginas/listas/pacientes.html'
 
-class FuncionarioList(ListView):
+class FuncionarioList(GroupRequiredMixin, LoginRequiredMixin, ListView):
     model = Funcionario
-    group_required = [u"Administrador", u"Editor"]
+    login_url = reverse_lazy('login')
+    group_required = [u"Administrador", u"Funcionario"]
     template_name = 'paginas/listas/funcionarios.html'
 
 
-class ConsultaList(ListView):
+class ConsultaList(GroupRequiredMixin, LoginRequiredMixin, ListView):
     model = Consulta
-    group_required = [u"Administrador", u"Editor"]
+    login_url = reverse_lazy('login')
+    group_required = [u"Administrador", u"Funcionario"]
     template_name = 'paginas/listas/consultas.html'
 
 # Create your views here.
