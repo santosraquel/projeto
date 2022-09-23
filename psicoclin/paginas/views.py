@@ -35,14 +35,6 @@ class CidadeCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
     template_name = 'paginas/form.html'
     success_url = reverse_lazy('listar-cidade')
 
-    def form_valid(self, form):
-        # pegando os dados do usuário que está logado e atribui ao usuário
-        form.instance.usuario = self.request.user
-        url = super().form_valid(form)  # persiste os dados no banco de dados
-        self.object.codigo = hash(self.object.pk)
-        self.object.save()  # salvando o objeto que foi alterado
-        return url
-
 class FuncaoCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
     model = Funcao
     login_url = reverse_lazy('login')
@@ -68,6 +60,14 @@ class PacienteCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
     template_name = 'paginas/form.html'
     success_url = reverse_lazy('listar-paciente')
 
+    def form_valid(self, form):
+        # pegando os dados do usuário que está logado e atribui ao usuário
+        form.instance.usuario = self.request.user
+        url = super().form_valid(form)  # persiste os dados no banco de dados
+        self.object.codigo = hash(self.object.pk)
+        self.object.save()  # salvando o objeto que foi alterado
+        return url
+
 class FuncionarioCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
     model = Funcionario
     login_url = reverse_lazy('login')
@@ -85,6 +85,14 @@ class ConsultaCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
     template_name = 'paginas/form.html'
     success_url = reverse_lazy('listar-consulta')
 
+    def form_valid(self, form):
+        # pegando os dados do usuário que está logado e atribui ao usuário
+        form.instance.usuario = self.request.user
+        url = super().form_valid(form)  # persiste os dados no banco de dados
+        self.object.codigo = hash(self.object.pk)
+        self.object.save()  # salvando o objeto que foi alterado
+        return url
+
 ############################# UPDATE VIEW #########################
 
 class EstadoUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
@@ -95,7 +103,6 @@ class EstadoUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     template_name = 'paginas/form.html'
     success_url = reverse_lazy('listar-estado')
 
-
 class CidadeUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     model = Cidade
     login_url = reverse_lazy('login')
@@ -104,14 +111,6 @@ class CidadeUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     template_name = 'paginas/form.html'
     success_url = reverse_lazy('listar-cidade')
 
-    # get() retorna um objeto
-    def get_object(self):  # filtrando objetos
-        # listando as cidades do usuário logado
-        self.object_list = get_object_or_404( Cidade, usuario=self.request.user,  pk=self.kwargs['pk'])
-        return self.object_list
-
-
-
 class FuncaoUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     model = Funcao
     login_url = reverse_lazy('login')
@@ -119,7 +118,6 @@ class FuncaoUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     group_required = u"Administrador"
     template_name = 'paginas/form.html'
     success_url = reverse_lazy('listar-funcao')
-
 
 class MedicoUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     model = Medico
@@ -137,6 +135,14 @@ class PacienteUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     template_name = 'paginas/form.html'
     success_url = reverse_lazy('listar-paciente')
 
+    def get_object(self):
+        self.object = get_object_or_404(
+                            Paciente,
+                            usuario=self.request.user,
+                            pk=self.kwargs['pk']
+                        )
+        return self.object
+
 class FuncionarioUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     model = Funcionario
     login_url = reverse_lazy('login')
@@ -145,7 +151,6 @@ class FuncionarioUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     template_name = 'paginas/form.html'
     success_url = reverse_lazy('listar-funcionario')
 
-
 class ConsultaUpdate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
     model = Consulta
     login_url = reverse_lazy('login')
@@ -153,6 +158,14 @@ class ConsultaUpdate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
     fields = ['paciente', 'medico', 'data', 'hora', 'valor', 'status']
     template_name = 'paginas/form.html'
     success_url = reverse_lazy('listar-consulta')
+
+    def get_object(self):
+        self.object = get_object_or_404(
+                            Consulta,
+                            usuario=self.request.user,
+                            pk=self.kwargs['pk']
+                        )
+        return self.object
 
 ######################### DELETE VIEW ##################################
 
@@ -164,7 +177,6 @@ class EstadoDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
     template_name = 'paginas/form-delete.html'
     success_url = reverse_lazy('listar-estado')
 
-
 class CidadeDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
     model = Cidade
     login_url = reverse_lazy('login')
@@ -172,22 +184,12 @@ class CidadeDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
     template_name = 'paginas/form-delete.html'
     success_url = reverse_lazy('listar-cidade')
 
-    # get() retorna um objeto
-    def get_object(self):  # filtrando objetos
-        # listando as cidades do usuário logado
-        self.object_list = get_object_or_404(
-            Cidade, usuario=self.request.user,  pk=self.kwargs['pk'])
-        return self.object_list
-
-
-
 class FuncaoDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
     model = Funcao
     login_url = reverse_lazy('login')
     group_required = u"Administrador"
     template_name = 'paginas/form-delete.html'
     success_url = reverse_lazy('listar-funcao')
-
 
 class MedicoDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
     model = Medico
@@ -203,6 +205,14 @@ class PacienteDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
     template_name = 'paginas/form-delete.html'
     success_url = reverse_lazy('listar-paciente')
 
+    def get_object(self):
+        self.object = get_object_or_404(
+            Paciente,
+            usuario=self.request.user,
+            pk=self.kwargs['pk']
+        )
+        return self.object
+
 class FuncionarioDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
     model = Funcionario
     login_url = reverse_lazy('login')
@@ -210,13 +220,20 @@ class FuncionarioDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
     template_name = 'paginas/form-delete.html'
     success_url = reverse_lazy('listar-funcionario')
 
-
 class ConsultaDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
     model = Consulta
     login_url = reverse_lazy('login')
     group_required = [u"Administrador", u"Funcionario"]
     template_name = 'paginas/form-delete.html'
     success_url = reverse_lazy('listar-consulta')
+
+    def get_object(self):
+        self.object = get_object_or_404(
+            Consulta,
+            usuario=self.request.user,
+            pk=self.kwargs['pk']
+        )
+        return self.object
 
 ######################### LIST VIEW ###############
 
@@ -226,26 +243,17 @@ class EstadoList(GroupRequiredMixin, LoginRequiredMixin, ListView):
     group_required = [u"Administrador", u"Funcionario"]
     template_name = 'paginas/listas/estados.html'
 
-
 class CidadeList(GroupRequiredMixin, LoginRequiredMixin, ListView):
     model = Cidade
     login_url = reverse_lazy('login')
     group_required = [u"Administrador", u"Funcionario"]
     template_name = 'paginas/listas/cidades.html'
-
-    # filter() retorna uma lista
-    def get_queryset(self): # filtrando objetos
-        # self.object_list = Cidade.objects.all(nome="Paranavaí") # listando todas as cidades que tem o nome Paranavaí
-        # self.object_list = Cidade.objects.all(nome__icontents="Paranavaí") # listando todas as cidades que contém Paranavaí
-        self.object_list = Cidade.objects.filter(usuario=self.request.user) # listando as cidades do usuário logado
-        return self.object_list
     
 class FuncaoList(GroupRequiredMixin, LoginRequiredMixin, ListView):
     model = Funcao
     login_url = reverse_lazy('login')
     group_required = [u"Administrador", u"Funcionario"]
     template_name = 'paginas/listas/funcoes.html'
-
 
 class MedicoList(GroupRequiredMixin, LoginRequiredMixin, ListView):
     model = Medico
@@ -259,18 +267,27 @@ class PacienteList(GroupRequiredMixin, LoginRequiredMixin, ListView):
     group_required = [u"Administrador", u"Funcionario"]
     template_name = 'paginas/listas/pacientes.html'
 
+    def get_queryset(self):
+        # armazena a lista e retorna ela
+        self.object_list = Paciente.objects.filter(usuario=self.request.user)
+        return self.object_list
+
 class FuncionarioList(GroupRequiredMixin, LoginRequiredMixin, ListView):
     model = Funcionario
     login_url = reverse_lazy('login')
     group_required = [u"Administrador", u"Funcionario"]
     template_name = 'paginas/listas/funcionarios.html'
 
-
 class ConsultaList(GroupRequiredMixin, LoginRequiredMixin, ListView):
     model = Consulta
     login_url = reverse_lazy('login')
     group_required = [u"Administrador", u"Funcionario"]
     template_name = 'paginas/listas/consultas.html'
+
+    def get_queryset(self):
+        # armazena a lista e retorna ela
+        self.object_list = Consulta.objects.filter(usuario=self.request.user)
+        return self.object_list
 
 # Create your views here.
 

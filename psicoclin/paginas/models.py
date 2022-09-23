@@ -24,7 +24,6 @@ class Estado(models.Model):
 class Cidade(models.Model):
     nome = models.CharField(max_length=50)
     estado = models.ForeignKey(Estado, on_delete=models.PROTECT)
-    usuario = models.ForeignKey(User, on_delete=models.PROTECT)
 
     def __str__(self):
         return self.nome + "/" + self.estado.sigla
@@ -50,6 +49,7 @@ class Paciente(models.Model):
         default='Ativo',
     )
     cidade = models.ForeignKey(Cidade, on_delete=models.PROTECT)
+    usuario = models.ForeignKey(User, on_delete=models.PROTECT)
 
     def __str__(self):
         return '{} (CPF: {})'.format(self.nome, self.cpf)
@@ -125,6 +125,7 @@ class Consulta(models.Model):
     valor = models.DecimalField(default=0, max_digits=5, decimal_places=2)
     paciente = models.ForeignKey(Paciente, on_delete=models.PROTECT)
     medico = models.ForeignKey(Medico, on_delete=models.PROTECT)
+    usuario = models.ForeignKey(User, on_delete=models.PROTECT)
 
     def __str__(self):
         return '{} ({})'.format(self.paciente, self.medico)
