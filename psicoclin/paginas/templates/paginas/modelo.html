@@ -18,6 +18,9 @@
      <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
     
     <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
+
+    <!-- importação do datatable -->
+    <link href="{% static 'css/datatables.min.css' %}" rel="stylesheet" />
     
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
 </head>
@@ -705,6 +708,36 @@
     
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
     <script src="{% static 'js/datatables-simple-demo.js' %}"></script>
+    <script src="{% static 'js/datatables.min.js' %}"></script>
+
+    <script>
+       $(document).ready(function () {
+
+            $("table").DataTable({
+                language: {
+                    decimal: ',',
+                    thousands: '.',
+                    lengthMenu: 'Mostrar _MENU_ registros por página',
+                    "emptyTable": "Nenhum registro encontrado",
+                    "info": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                    "infoEmpty": "Mostrando 0 até 0 de 0 registros",
+                    "infoFiltered": "(Filtrados de _MAX_ registros)",
+                    "infoThousands": ".",
+                    "loadingRecords": "Carregando...",
+                    "processing": "Processando...",
+                    "zeroRecords": "Nenhum registro encontrado",
+                    "search": "Pesquisar",
+                    "paginate": {
+                        "next": "Próximo",
+                        "previous": "Anterior",
+                        "first": "Primeiro",
+                        "last": "Último"
+                    },
+                },
+            });
+        });
+    </script>
+
 
 {% block scripts %}
 {% endblock %}
