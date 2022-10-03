@@ -35,5 +35,93 @@
 
 {% endif %}
 
+<hr>
+
+<button id="btn-teste1" class="btn btn-primary">Botão 1</button>
+<button id="btn-teste2" class="btn btn-primary">Botão 2</button>
+<button id="btn-teste3" class="btn btn-primary">Botão 3</button>
+
+<div class="div-teste1 p-3 my-3 bg-secondary">
+   Div com alguma coisa
+</div>
+
+<div class="div-teste2 p-3 my-3 bg-warning" style="display: none;">
+   Div com alguma coisa
+</div>
+
+<input type="text" name="teste" id="input-teste" class="form-control" value="42">
+
+{% endblock %}
+
+{% block scripts %}
+
+<script>
+   // 1º CASO
+   // $(document).ready(function () {
+   //    // alert("ok");
+
+   //    // $(selector).acao();
+
+   //    // quando clicar no botão 
+   //    $("#btn-teste1").click(function(){
+   //       // $(".div-teste1").hide(); // esconde div
+   //       // $(".div-teste1").show(); // mostra div
+   //       // $(".div-teste1").fadeOut(); // esconde div com efeito
+   //       $(".div-teste1").slideToggle(); // alterna 
+   //    });
+   // });
+
+
+   // //   2º CASO
+   // $(document).ready(function () {
+
+   //    // quando clicar no botão 
+   //    $("#btn-teste1").click(function(){
+   //          // $(".div-teste1").show();  
+   //          $(".div-teste1").hide();  
+           
+   //          var v = $("#input-teste").val();
+   //          $(".div-teste2").text(v);
+   //          // $(".div-teste2").html("<h1>" + v + "</h1>");
+
+   //          $(".div-teste2").fadeIn(); 
+            
+   //       });
+         
+   //       $("#btn-teste2").click(function () {
+   //          $(".div-teste2").show();  
+   //          $(".div-teste1").hide(); 
+   //    });
+   //    // quando passa o mouse em cima
+   //    // $(selector).mouseover(function () {});
+   // });
+
+
+    //   3º CASO: quando clicar no botão 3 trocar a classe da div
+      $(document).ready(function () {
+
+         // quando clicar no botão 
+         $("#btn-teste1").click(function () {
+            // $(".div-teste1").show();  
+            $(".div-teste1").hide();
+
+            var v = $("#input-teste").val();
+            $(".div-teste2").text(v);
+
+            $(".div-teste2").removeClass('bg-warning').addClass('bg-success');
+
+            $(".div-teste2").fadeIn();
+
+         });
+
+         $("#btn-teste2").click(function () {
+            $(".div-teste2").show();
+            $(".div-teste1").hide();
+         });
+         // quando passa o mouse em cima
+         // $(selector).mouseover(function () {});
+      });
+</script>
+
 {% endblock %}
 

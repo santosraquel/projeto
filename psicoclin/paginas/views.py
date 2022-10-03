@@ -151,7 +151,8 @@ class FuncionarioUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     template_name = 'paginas/form.html'
     success_url = reverse_lazy('listar-funcionario')
 
-class ConsultaUpdate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
+
+class ConsultaUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     model = Consulta
     login_url = reverse_lazy('login')
     group_required = [u"Administrador", u"Funcionario"]
