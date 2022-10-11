@@ -11,11 +11,26 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Estado, Cidade, Funcao, Medico, Funcionario, Consulta, Paciente
 from braces.views import GroupRequiredMixin
 # Create your views here.
-
+from datetime import datetime
 
 ############################# CREATE VIEW #########################
 class Index(TemplateView):
     template_name = 'paginas/index.html'
+
+
+class PaginaInicialView(GroupRequiredMixin, TemplateView):
+    template_name = 'paginas/index.html'
+    group_required = [u"Administrador", u"Funcionario"]
+
+    # de uma maneira geral, envia dados para o template html
+    def get_context_data(self, *args, **kwargs):
+        # Executa da classe pai para ter dados padrão
+        dados = super().get_context_data(*args, **kwargs)
+
+        # Cria um dado na posição teste
+        dados["teste"] = "Consultas"
+        dados["consultas"] = Consulta.objects.filter(data = datetime.today()) 
+        return dados
 
 
 class EstadoCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
@@ -292,22 +307,4 @@ class ConsultaList(GroupRequiredMixin, LoginRequiredMixin, ListView):
 
 # Create your views here.
 
-class PaginaInicialView(TemplateView):
-    template_name = 'paginas/index.html'
 
-    # de uma maneira geral, envia dados para o template html
-    def get_context_data(self, *args, **kwargs):
-        # Executa da classe pai para ter dados padrão
-        dados = super().get_context_data(*args, **kwargs)
-
-        # Cria um dado na posição teste
-        dados["teste"] = "Mah oeee"
-
-        # Verifica se o usuário está logado
-        if(self.request.user.is_authenticated):
-            # Cria a posição parcelas_vencidas com uma contagem de parcela que não foram pagas
-            dados["name"] = Estado.objects.filter(
-                estado__usuario=self.request.user,
-            ).count()
-
-        return dados

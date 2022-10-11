@@ -4,10 +4,11 @@ from .views import Index, EstadoCreate, CidadeCreate, FuncaoCreate, MedicoCreate
 from .views import EstadoUpdate, CidadeUpdate, FuncaoUpdate, MedicoUpdate, PacienteUpdate, FuncionarioUpdate, ConsultaUpdate
 from .views import EstadoDelete, CidadeDelete, FuncaoDelete, MedicoDelete, PacienteDelete, FuncionarioDelete, ConsultaDelete
 from .views import EstadoList, CidadeList, FuncaoList, MedicoList, PacienteList, FuncionarioList, ConsultaList
+from .views import PaginaInicialView
 
 
 urlpatterns = [
-    path('', Index.as_view(), name="index"),
+    path('', PaginaInicialView.as_view(), name="index"),
 
     path('cadastrar/estado', EstadoCreate.as_view(), name="cadastrar-estado"),
     path('cadastrar/cidade', CidadeCreate.as_view(), name="cadastrar-cidade"),

@@ -1,33 +1,40 @@
 {% extends 'paginas/modelo.html' %}
- 
+
 {% load static %}
- 
+
 {% block titulo %}
- 
-   <title>Página Inicial</title>
+
+<title>Página Inicial</title>
 {% endblock %}
- 
+
 {% block conteudo %}
-<!-- <h1 class="mt-4">Psicoclin</h1> -->
-<p class="lead">
-   Sistema desenvolvido na disciplina de Novas Aplicações em Engenharia de Software, do curso bacharel em
-   Engenharia de Software do Instituto Federal do Paraná - Campus Paranavaí, para obetenção
-   de conceito do 2º Trimestre.
-</p>
- 
-<h1 class="text-center">PsicoClin</h1>
- 
-<p class="lead">
-   O sistema PsicoClin consiste em um sistema de agendamento de consultas médicas desenvolvido para
-   uma clínica da cidade de Paranavaí. Este sistema permite que a clínica se organize
-   em relação as consultas, ou seja, quais dias e horários que tem consulta, bem como
-   qual paciente será atendido por determinado médico.   
-</p>
- 
-<h3 class="text-center">Diagrama de Classe</h3>
-<img src="/static/assets/img/der.png" class="mx-auto mt-5 d-block"/> 
- 
- 
+
+
+<h2>{{teste}}</h2>
+
+
+<hr>
+{% for obj in consultas %}
+   <div class="card text-dark bg-light mb-3" style="max-width: 18rem;">
+      <div class="card-header">Status: {{obj.status}}</div>
+      <div class="card-body">
+         <h5 class="card-title">Paciente: {{obj.paciente}}</h5>
+         <p class="card-text"><strong>Médico:</strong> {{obj.medico}}</p>
+         <p class="card-text"><strong>Data:</strong> {{obj.data}}</p>
+         <p class="card-text"><strong>Hora:</strong> {{obj.hora}}</p>
+         <p class="card-text"><strong>Preço:</strong> R${{obj.valor}}</p>
+      </div>
+      <div class="card-footer bg-transparent">
+         <a href="{% url 'editar-consulta' obj.pk %}" class="btn btn-sm" title="Editar">
+            <i class="fa fa-pencil" aria-hidden="true"></i>
+         </a>
+         <a href="{% url 'excluir-consulta' obj.pk %}" class="btn btn-sm" title="Excluir">
+            <i class="fa fa-trash" aria-hidden="true"></i>
+         </a>
+      </div>
+   </div>
+{% endfor %}
+
 {% if request.user.groups.all.0.name == "Administrador" %}
 <div class="alert alert-primary" role="alert">
    <strong>Administrador detectado</strong>
@@ -37,7 +44,7 @@
 
 <hr>
 
-<button id="btn-teste1" class="btn btn-primary">Botão 1</button>
+<!-- <button id="btn-teste1" class="btn btn-primary">Botão 1</button>
 <button id="btn-teste2" class="btn btn-primary">Botão 2</button>
 <button id="btn-teste3" class="btn btn-primary">Botão 3</button>
 
@@ -49,7 +56,7 @@
    Div com alguma coisa
 </div>
 
-<input type="text" name="teste" id="input-teste" class="form-control" value="42">
+<input type="text" name="teste" id="input-teste" class="form-control" value="42"> -->
 
 {% endblock %}
 
@@ -79,15 +86,15 @@
    //    $("#btn-teste1").click(function(){
    //          // $(".div-teste1").show();  
    //          $(".div-teste1").hide();  
-           
+
    //          var v = $("#input-teste").val();
    //          $(".div-teste2").text(v);
    //          // $(".div-teste2").html("<h1>" + v + "</h1>");
 
    //          $(".div-teste2").fadeIn(); 
-            
+
    //       });
-         
+
    //       $("#btn-teste2").click(function () {
    //          $(".div-teste2").show();  
    //          $(".div-teste1").hide(); 
@@ -97,31 +104,30 @@
    // });
 
 
-    //   3º CASO: quando clicar no botão 3 trocar a classe da div
-      $(document).ready(function () {
+   //   3º CASO: quando clicar no botão 3 trocar a classe da div
+   $(document).ready(function () {
 
-         // quando clicar no botão 
-         $("#btn-teste1").click(function () {
-            // $(".div-teste1").show();  
-            $(".div-teste1").hide();
+      // quando clicar no botão 
+      $("#btn-teste1").click(function () {
+         // $(".div-teste1").show();  
+         $(".div-teste1").hide();
 
-            var v = $("#input-teste").val();
-            $(".div-teste2").text(v);
+         var v = $("#input-teste").val();
+         $(".div-teste2").text(v);
 
-            $(".div-teste2").removeClass('bg-warning').addClass('bg-success');
+         $(".div-teste2").removeClass('bg-warning').addClass('bg-success');
 
-            $(".div-teste2").fadeIn();
+         $(".div-teste2").fadeIn();
 
-         });
-
-         $("#btn-teste2").click(function () {
-            $(".div-teste2").show();
-            $(".div-teste1").hide();
-         });
-         // quando passa o mouse em cima
-         // $(selector).mouseover(function () {});
       });
+
+      $("#btn-teste2").click(function () {
+         $(".div-teste2").show();
+         $(".div-teste1").hide();
+      });
+      // quando passa o mouse em cima
+      // $(selector).mouseover(function () {});
+   });
 </script>
 
 {% endblock %}
-
