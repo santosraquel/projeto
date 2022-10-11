@@ -4,54 +4,58 @@
 
 {% block conteudo %}
 
-<h1 class="mt-4">
-    Lista de Médicos
-
-    <a class="btn btn-primary float-right ms-5" 
-        href="{% url 'cadastrar-medico' %}">
-        Cadastrar Médico
-    </a>
-
-</h1>
+<div class="row">
+    <div class="col-lg">
+        <h1>Lista de Médicos</h1>
+    </div>
+    <div class="col-lg text-end text-md-start">
+        <a class="btn btn-primary ms-5 mt-2" href="{% url 'cadastrar-medico' %}">
+            Cadastrar Médico
+        </a>
+    </div>
+</div>
 
 <hr>
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Nome</th>
-            <th>CRM</th>
-            <th>Função</th>
-            <th>Telefone</th>
-            <th>Status</th>
-            <th>Opções</th>
-        </tr>
-    </thead>
 
-    <tbody>
-        {% for obj in object_list %}
-        <tr>
-            <td>{{obj.pk}}</td>
-            <td>{{obj.nome}}</td>
-            <td>{{obj.crm}}</td>
-            <td>{{obj.funcao}}</td>
-            <td>{{obj.telefone}}</td>
-            <td>{{obj.status}}</td>
-            <td>
-                <a href="{% url 'editar-medico' obj.pk %}" class="btn btn-warning btn-sm" title="Editar">
-                    <i class="fa fa-pencil" aria-hidden="true"></i>
-                </a>
-                <a href="{% url 'excluir-medico' obj.pk %}" class="btn btn-danger btn-sm" title="Excluir">
-                    <i class="fa fa-trash" aria-hidden="true"></i>
-                </a>
-            </td>
-        </tr>
-        {% empty %}
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
             <tr>
-                <td colspan="100%">Nenhum registro encontrado.</td>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>CRM</th>
+                <th>Função</th>
+                <th>Telefone</th>
+                <th>Status</th>
+                <th>Opções</th>
             </tr>
-        {% endfor %}
-    </tbody>
-</table>
+        </thead>
+    
+        <tbody>
+            {% for obj in object_list %}
+            <tr>
+                <td>{{obj.pk}}</td>
+                <td>{{obj.nome}}</td>
+                <td>{{obj.crm}}</td>
+                <td>{{obj.funcao}}</td>
+                <td>{{obj.telefone}}</td>
+                <td>{{obj.status}}</td>
+                <td>
+                    <a href="{% url 'editar-medico' obj.pk %}" class="btn btn-warning btn-sm" title="Editar">
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                    </a>
+                    <a href="{% url 'excluir-medico' obj.pk %}" class="btn btn-danger btn-sm" title="Excluir">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                    </a>
+                </td>
+            </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="100%">Nenhum registro encontrado.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 
 {% endblock %}
