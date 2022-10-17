@@ -2,6 +2,8 @@
 
 {% load static %}
 
+{% load meus_filtros %}
+
 {% block conteudo %}
 
 <div class="row">
@@ -34,11 +36,11 @@
         <tbody>
             {% for obj in object_list %}
             <tr>
-                <td>{{obj.pk}}</td>
-                <td>{{obj.nome}}</td>
-                <td>{{obj.cpf}}</td>
-                <td>{{obj.telefone}}</td>
-                <td>{{obj.status}}</td>
+                <td>{{ obj.pk }}</td>
+                <td>{{ obj.nome }}</td>
+                <td>{{ obj.cpf }}</td>
+                <td>{{ obj.telefone }}</td>
+                <td>{{ obj.status }}</td>
                 <td>
                     <a href="{% url 'editar-funcionario' obj.pk %}" class="btn btn-warning btn-sm" title="Editar">
                         <i class="fa fa-pencil" aria-hidden="true"></i>
