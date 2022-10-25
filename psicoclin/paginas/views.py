@@ -28,7 +28,7 @@ class PaginaInicialView(GroupRequiredMixin, TemplateView):
         dados = super().get_context_data(*args, **kwargs)
 
         # Cria um dado na posição teste
-        dados["teste"] = "Consultas"
+        dados["teste"] = "Consultas de Hoje"
         dados["consultas"] = Consulta.objects.filter(data = datetime.today()) 
         return dados
 

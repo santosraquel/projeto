@@ -2,6 +2,8 @@
 
 {% load static %}
 
+{% load meus_filtros %}
+
 {% block titulo %}
 
 <title>Página Inicial</title>
@@ -15,7 +17,7 @@
 
 <hr>
 {% for obj in consultas %}
-   <div class="card text-dark bg-light mb-3" style="max-width: 18rem;">
+   <div id="card" class="card text-dark {{ obj.status|verificarStatus }} m-3" style="max-width: 18rem; float: left; background-color: 'blue'">
       <div class="card-header">Status: {{obj.status}}</div>
       <div class="card-body">
          <h5 class="card-title">Paciente: {{obj.paciente}}</h5>
@@ -25,15 +27,17 @@
          <p class="card-text"><strong>Preço:</strong> R${{obj.valor}}</p>
       </div>
       <div class="card-footer bg-transparent">
-         <a href="{% url 'editar-consulta' obj.pk %}" class="btn btn-sm" title="Editar">
+         <a href="{% url 'editar-consulta' obj.pk %}" id="buttonEdit" class="btn btn-sm text-dark" title="Editar">
             <i class="fa fa-pencil" aria-hidden="true"></i>
          </a>
-         <a href="{% url 'excluir-consulta' obj.pk %}" class="btn btn-sm" title="Excluir">
+         <a href="{% url 'excluir-consulta' obj.pk %}" id="buttonDelete" class="btn btn-sm text-dark" title="Excluir">
             <i class="fa fa-trash" aria-hidden="true"></i>
          </a>
       </div>
    </div>
 {% endfor %}
+
+<div style="clear: both;"></div>
 
 {% if request.user.groups.all.0.name == "Administrador" %}
 <div class="alert alert-primary" role="alert">
@@ -63,6 +67,37 @@
 {% block scripts %}
 
 <script>
+    $(document).ready(function () {
+
+
+      // // quando clicar no botão 
+      // $("#btn-teste1").click(function () {
+      //    // $(".div-teste1").show();  
+      //    $(".div-teste1").hide();
+
+      //    var v = $("#input-teste").val();
+      //    $(".div-teste2").text(v);
+
+      //    $(".div-teste2").removeClass('bg-warning').addClass('bg-success');
+
+      //    $(".div-teste2").fadeIn();
+
+      // });
+
+      // $("#btn-teste2").click(function () {
+      //    $(".div-teste2").show();
+      //    $(".div-teste1").hide();
+      // });
+      // // quando passa o mouse em cima
+      // // $(selector).mouseover(function () {});
+   });
+
+
+
+
+
+
+
    // 1º CASO
    // $(document).ready(function () {
    //    // alert("ok");
@@ -105,29 +140,29 @@
 
 
    //   3º CASO: quando clicar no botão 3 trocar a classe da div
-   $(document).ready(function () {
+   // $(document).ready(function () {
 
-      // quando clicar no botão 
-      $("#btn-teste1").click(function () {
-         // $(".div-teste1").show();  
-         $(".div-teste1").hide();
+   //    // quando clicar no botão 
+   //    $("#btn-teste1").click(function () {
+   //       // $(".div-teste1").show();  
+   //       $(".div-teste1").hide();
 
-         var v = $("#input-teste").val();
-         $(".div-teste2").text(v);
+   //       var v = $("#input-teste").val();
+   //       $(".div-teste2").text(v);
 
-         $(".div-teste2").removeClass('bg-warning').addClass('bg-success');
+   //       $(".div-teste2").removeClass('bg-warning').addClass('bg-success');
 
-         $(".div-teste2").fadeIn();
+   //       $(".div-teste2").fadeIn();
 
-      });
+   //    });
 
-      $("#btn-teste2").click(function () {
-         $(".div-teste2").show();
-         $(".div-teste1").hide();
-      });
-      // quando passa o mouse em cima
-      // $(selector).mouseover(function () {});
-   });
+   //    $("#btn-teste2").click(function () {
+   //       $(".div-teste2").show();
+   //       $(".div-teste1").hide();
+   //    });
+   //    // quando passa o mouse em cima
+   //    // $(selector).mouseover(function () {});
+   // });
 </script>
 
 {% endblock %}

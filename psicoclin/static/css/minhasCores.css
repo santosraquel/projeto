@@ -1,0 +1,15 @@
+.bg-realizada{
+    background-color: #adebad;
+}
+
+.bg-cancelada{
+    background-color: #ff9999;
+}
+
+.bg-agendada{
+    background-color: #ffeb99;
+}
+
+.bg-pendente{
+    background-color: #cccccc;
+}

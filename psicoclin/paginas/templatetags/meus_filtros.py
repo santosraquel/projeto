@@ -27,3 +27,25 @@ def esta_no_grupo (usuario, nome_do_grupo):
         return True
     else:
         return False
+
+
+@register.filter(name="verificarStatus")
+def verificarStatus(status):
+    if(status == 'Pendente'):
+        return 'bg-pendente'
+    elif(status == 'Realizada'):
+        return 'bg-realizada'
+    elif(status == 'Cancelada'):
+        return 'bg-cancelada'
+    elif(status == 'Agendada'):
+        return 'bg-agendada'
+    else:
+        return 'bg-light'
+
+
+# @register.filter(name="textStatus")
+# def textStatus(status):
+#     if(status == 'Pendente' or status == 'Realizada' or status == 'Cancelada' or status == 'Agendada'):
+#         return 'text-white'
+#     else:
+#         return 'text-dark'
