@@ -77,7 +77,7 @@ class PacienteCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         # pegando os dados do usuário que está logado e atribui ao usuário
-        form.instance.usuario = self.request.user
+        # form.instance.usuario = self.request.user
         url = super().form_valid(form)  # persiste os dados no banco de dados
         self.object.codigo = hash(self.object.pk)
         self.object.save()  # salvando o objeto que foi alterado
@@ -102,7 +102,7 @@ class ConsultaCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         # pegando os dados do usuário que está logado e atribui ao usuário
-        form.instance.usuario = self.request.user
+        form.instance.agendada_por = self.request.user
         url = super().form_valid(form)  # persiste os dados no banco de dados
         self.object.codigo = hash(self.object.pk)
         self.object.save()  # salvando o objeto que foi alterado
@@ -153,7 +153,7 @@ class PacienteUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     def get_object(self):
         self.object = get_object_or_404(
                             Paciente,
-                            usuario=self.request.user,
+                            # usuario=self.request.user,
                             pk=self.kwargs['pk']
                         )
         return self.object
@@ -178,7 +178,7 @@ class ConsultaUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     def get_object(self):
         self.object = get_object_or_404(
                             Consulta,
-                            usuario=self.request.user,
+                            # usuario=self.request.user,
                             pk=self.kwargs['pk']
                         )
         return self.object
@@ -224,7 +224,7 @@ class PacienteDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
     def get_object(self):
         self.object = get_object_or_404(
             Paciente,
-            usuario=self.request.user,
+            # usuario=self.request.user,
             pk=self.kwargs['pk']
         )
         return self.object
@@ -246,7 +246,7 @@ class ConsultaDelete(GroupRequiredMixin, LoginRequiredMixin, DeleteView):
     def get_object(self):
         self.object = get_object_or_404(
             Consulta,
-            usuario=self.request.user,
+            # usuario=self.request.user,
             pk=self.kwargs['pk']
         )
         return self.object
@@ -264,6 +264,11 @@ class CidadeList(GroupRequiredMixin, LoginRequiredMixin, ListView):
     login_url = reverse_lazy('login')
     group_required = [u"Administrador", u"Funcionario"]
     template_name = 'paginas/listas/cidades.html'
+
+    def get_queryset(self):
+        # armazena a lista e retorna ela
+        self.object_list = Cidade.objects.all().select_related('estado')
+        return self.object_list
     
 class FuncaoList(GroupRequiredMixin, LoginRequiredMixin, ListView):
     model = Funcao
@@ -277,6 +282,11 @@ class MedicoList(GroupRequiredMixin, LoginRequiredMixin, ListView):
     group_required = [u"Administrador", u"Funcionario"]
     template_name = 'paginas/listas/medicos.html'
 
+    def get_queryset(self):
+        # armazena a lista e retorna ela
+        self.object_list = Medico.objects.all().select_related('funcao')
+        return self.object_list
+
 class PacienteList(GroupRequiredMixin, LoginRequiredMixin, ListView):
     model = Paciente
     login_url = reverse_lazy('login')
@@ -285,7 +295,7 @@ class PacienteList(GroupRequiredMixin, LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         # armazena a lista e retorna ela
-        self.object_list = Paciente.objects.filter(usuario=self.request.user)
+        self.object_list = Paciente.objects.all()
         return self.object_list
 
 class FuncionarioList(GroupRequiredMixin, LoginRequiredMixin, ListView):
@@ -302,7 +312,9 @@ class ConsultaList(GroupRequiredMixin, LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         # armazena a lista e retorna ela
-        self.object_list = Consulta.objects.filter(usuario=self.request.user)
+        self.object_list = Consulta.objects.all().select_related('paciente', 'medico', 'medico__funcao')
+        # self.object_list = Consulta.objects.filter(
+        #     data=datetime.today()).select_related('paciente', 'medico')
         return self.object_list
 
 # Create your views here.
