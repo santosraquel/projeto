@@ -1,5 +1,7 @@
 from operator import truediv
 from django import template
+
+from ..models import Consulta
 register = template.Library()
 
 @register.filter(name="remover")
@@ -49,3 +51,8 @@ def verificarStatus(status):
 #         return 'text-white'
 #     else:
 #         return 'text-dark'
+
+@register.simple_tag(name="total_consultas")
+def total_consultas():   
+      return Consulta.objects.count()
+    
