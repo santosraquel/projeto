@@ -63,7 +63,7 @@ class MedicoCreate(GroupRequiredMixin, LoginRequiredMixin, CreateView):
     model = Medico
     login_url = reverse_lazy('login')
     group_required = u"Administrador"
-    fields = ['nome', 'nascimento', 'rg', 'crm', 'rua', 'bairro', 'numero', 'cidade', 'telefone', 'funcao', 'status']
+    fields = ['nome', 'nascimento', 'rg', 'crm', 'cep', 'rua', 'bairro', 'numero', 'cidade', 'telefone', 'funcao', 'status']
     template_name = 'paginas/form.html'
     success_url = reverse_lazy('listar-medico')
 
@@ -138,7 +138,7 @@ class MedicoUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
     model = Medico
     login_url = reverse_lazy('login')
     group_required = u"Administrador"
-    fields = ['nome', 'nascimento', 'rg', 'crm', 'rua', 'bairro', 'numero', 'cidade', 'telefone', 'funcao', 'status']
+    fields = ['nome', 'nascimento', 'rg', 'crm', 'cep', 'rua', 'bairro', 'numero', 'cidade', 'telefone', 'funcao', 'status']
     template_name = 'paginas/form.html'
     success_url = reverse_lazy('listar-medico')
 

@@ -73,6 +73,7 @@ class Medico(models.Model):
                           help_text="99.999.999-9")
     crm = models.CharField(
         max_length=15, verbose_name="CRM")
+    cep = models.CharField(max_length=100)
     rua = models.CharField(max_length=100)
     bairro = models.CharField(max_length=100)
     numero = models.CharField(max_length=5)
@@ -82,7 +83,8 @@ class Medico(models.Model):
         choices=status_CHOICES,
         default='Ativo',
     )
-    cidade = models.ForeignKey(Cidade, on_delete=models.PROTECT)
+    cidade = models.CharField(max_length=100)
+    # cidade = models.ForeignKey(Cidade, on_delete=models.PROTECT)
     funcao = models.ForeignKey(Funcao, on_delete=models.PROTECT)
 
     def __str__(self):
